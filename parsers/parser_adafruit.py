@@ -2,6 +2,7 @@ from selenium.webdriver.common.by import By
 from parsers.parser_spark_fun import Sparkfun
 import time
 
+
 class Adafruit(Sparkfun):
     def __init__(self):
         super().__init__()

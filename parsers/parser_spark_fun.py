@@ -6,6 +6,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from logic.business_logic import Businesslogic
 import time
 
+
 class Sparkfun:
     def __init__(self):
         options = Options()
@@ -16,7 +17,13 @@ class Sparkfun:
 
     def open_site(self):
         self.driver.get("https://www.sparkfun.com/all-categories")
-
+    
+    """
+    parsing_category парсит категории товаров. Сначала открываются все категории (как заглушка). Затем открывается 
+    определённая категория, и начинается парсинг: сначала я беру цену, потом открываю страницу товара и парсю остальные данные.
+    Когда парсинг категории завершён, вкладка с категорией закрывается, но браузер не закрывается благодаря заглушке open_site. 
+    После этого парсятся следующие категории.
+    """
     def parsing_category(self, url: str, insert_func):
         self.driver.execute_script(f"window.open('{url}')")
         self.next_window()
@@ -46,7 +53,10 @@ class Sparkfun:
 
             time.sleep(2)
             self.detect_window()
-
+            
+            """Хотел вынести в отельный метод, но нельзя
+            использовать break вне цикла
+            """
             try:
                 self.driver.find_element(By.CSS_SELECTOR, 'li.item.pages-item-next a').click()
                 time.sleep(3)
@@ -93,6 +103,9 @@ class Sparkfun:
     def tools_category(self):
         self.parsing_category("https://www.sparkfun.com/tools.html", self.save_bd.check_insert_tool)
 
+    """
+    detect_window для закрытие рекламы
+    """
     def detect_window(self):
         try:
             WebDriverWait(self.driver, 5).until(EC.frame_to_be_available_and_switch_to_it((By.CSS_SELECTOR,'[title="Popup CTA"]')))

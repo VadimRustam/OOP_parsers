@@ -7,6 +7,7 @@ from logic.business_logic import Businesslogic
 from parsers.parser_spark_fun import Sparkfun
 import time
 
+
 class Dfrobot(Sparkfun):
     def __init__(self):
         options = Options()

@@ -4,6 +4,12 @@ from selenium.webdriver.support import expected_conditions as EC
 from parsers.parser_spark_fun import Sparkfun
 import time
 
+
+"""
+Я наследую все методы, и переопределяю их, 
+или грамотнее было бы, создать отдельный
+абстракный класс в файле и наследовать его.
+"""
 class Mikroe(Sparkfun):
     def __init__(self):
         super().__init__()
@@ -19,7 +25,6 @@ class Mikroe(Sparkfun):
         while True:
             time.sleep(2)
             blok_things = self.driver.find_elements(By.CSS_SELECTOR, '.s_ais_hit_products_list.flex.flex-wrap.box-border.overflow-hidden .s_ais_hit.grow-0.shrink-0.flex.justify-center.bg-white')
-            # print(blok_things)
             time.sleep(2)
             try:
                 for thing in blok_things:
@@ -75,7 +80,6 @@ class Mikroe(Sparkfun):
     def description(self, thing):
         try:
             description = thing.find_element(By.CSS_SELECTOR, ".s_ais_p_info-box.grow.relative.flex.flex-col .s_ais_p_desc.text-12.line-clamp-2.leading-5.text-zinc-700").text
-            # description = desc_elem.get_attribute("innerText").strip() desc_elem
             return description
         except:
             return None
