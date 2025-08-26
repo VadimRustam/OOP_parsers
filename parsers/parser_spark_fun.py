@@ -11,9 +11,9 @@ class Sparkfun:
     def __init__(self):
         options = Options()
         options.add_argument("--window-size=1920,1080")
-        self.driver = webdriver.Chrome(options=options)
-        self.save_bd = Businesslogic()
-        self.info = {}
+        self._driver = webdriver.Chrome(options=options)
+        self._save_bd = Businesslogic()
+        self._info = {}
 
     def open_site(self):
         self.driver.get("https://www.sparkfun.com/all-categories")
